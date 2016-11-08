@@ -35,6 +35,7 @@ import org.apache.zeppelin.interpreter.InterpreterOutputListener;
 import org.apache.zeppelin.interpreter.InterpreterResult;
 import org.apache.zeppelin.interpreter.InterpreterResult.Type;
 import org.apache.zeppelin.user.AuthenticationInfo;
+import org.apache.commons.exec.environment.EnvironmentUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -62,6 +63,8 @@ public class PythonInterpreterMatplotlibTest {
 
   @Before
   public void setUp() throws Exception {
+    Map env = EnvironmentUtils.getProcEnvironment();
+    EnvironmentUtils.addVariableToEnvironment(env, "PYTHONPATH=../interpreter/lib/python:$PYTHONPATH");
     Properties p = new Properties();
     p.setProperty("zeppelin.python", "python");
     p.setProperty("zeppelin.python.maxResult", "100");
