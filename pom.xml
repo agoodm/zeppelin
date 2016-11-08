@@ -802,6 +802,9 @@
 
               <exclude>**/horizontalbar_mockdata.txt</exclude>
 
+              <!-- conda package installer for python -->
+              <exclude>miniconda.sh</exclude>
+
               <!-- compiled R packages (binaries) -->
               <exclude>R/lib/**</exclude>
               <exclude>r/lib/**</exclude>
