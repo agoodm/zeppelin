@@ -60,6 +60,7 @@ public class PythonInterpreter extends Interpreter {
   private Boolean py4JisInstalled = false;
   private InterpreterContext context;
   private Pattern errorInLastLine = Pattern.compile(".*(Error|Exception): .*$");
+  private String pythonPath;
   private int maxResult;
 
   PythonProcess process = null;
@@ -199,9 +200,13 @@ public class PythonInterpreter extends Interpreter {
     return null;
   }
 
+  public void setPythonPath(String pythonPath) {
+    this.pythonPath = pythonPath;
+  }
+
   public PythonProcess getPythonProcess() {
     if (process == null) {
-      return new PythonProcess(getProperty(ZEPPELIN_PYTHON));
+      return new PythonProcess(getProperty(ZEPPELIN_PYTHON), pythonPath);
     } else {
       return process;
     }

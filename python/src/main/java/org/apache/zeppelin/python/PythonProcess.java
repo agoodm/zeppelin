@@ -42,15 +42,19 @@ public class PythonProcess {
   Process process;
 
   private String binPath;
+  private String pythonPath;
   private long pid;
 
-  public PythonProcess(String binPath) {
+  public PythonProcess(String binPath, String pythonPath) {
     this.binPath = binPath;
+    this.pythonPath = pythonPath;
   }
 
   public void open() throws IOException {
     ProcessBuilder builder = new ProcessBuilder(binPath, "-iu");
-
+    if (pythonPath != null) {
+      builder.environment().put("PYTHONPATH", pythonPath);      
+    }
     builder.redirectErrorStream(true);
     process = builder.start();
     stdout = process.getInputStream();
@@ -109,6 +113,6 @@ public class PythonProcess {
 
   public long getPid() {
     return pid;
-  }
+  }  
 
 }
