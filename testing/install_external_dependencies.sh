@@ -19,7 +19,7 @@ set -ev
 touch ~/.environ
 
 # Install R dependencies if R profiles are used
-if [[ "$PROFILE" == "*-Pr *" ] || ["$PROFILE" == "*-Psparkr *"]] ; then
+if [ "$PROFILE" == "*-Pr *" ] || ["$PROFILE" == "*-Psparkr *"] ; then
   mkdir -p ~/R
   echo "R_LIBS=~/R" > ~/.Renviron
   echo "export R_LIBS=~/R" >> ~/.environ
