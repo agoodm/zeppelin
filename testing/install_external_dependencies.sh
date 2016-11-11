@@ -19,6 +19,7 @@
 
 # Script for installing R / Python dependencies for Travis CI
 set -ev
+
 if [[ -v "$0"]] ; then
   cd ~
   mkdir -p ~/R
@@ -30,7 +31,7 @@ fi
 
 if [[ "$0" == "2.7" ]] ; then
   wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh
-elif [["$0" == "3.5" ]]
+else
   wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
 fi
 bash miniconda.sh -b -p $HOME/miniconda
