@@ -20,13 +20,12 @@
 # Script for installing R / Python dependencies for Travis CI
 set -ev
 if [[ -z "$PYTHON" ]] ; then
-  mkdir -p $TRAVIS_BUILD_DIR/R
-  echo 'R_LIBS=$TRAVIS_BUILD_DIR/R' > ~/.Renviron
-  R -e "install.packages('knitr', repos = 'http://cran.us.r-project.org', lib='$TRAVIS_BUILD_DIR/R')"
-  export R_LIBS='$TRAVIS_BUILD_DIR/R'
+  mkdir -p ~/R
+  echo 'R_LIBS=~/R' > ~/.Renviron
+  R -e "install.packages('knitr', repos = 'http://cran.us.r-project.org', lib='~/R')"
+  export R_LIBS='~/R'
   ls ~
   ls $HOME
-  exit
 fi
 
 if [[ "$PYTHON" == "2.7" ]] ; then
