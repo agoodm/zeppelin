@@ -19,6 +19,7 @@
 
 # Script for installing R / Python dependencies for Travis CI
 set -ev
+PYTHON="$@"
 if [[ -v "$PYTHON" ]] ; then
   pwd
   cd ~
@@ -41,4 +42,4 @@ conda config --set always_yes yes --set changeps1 no
 conda update -q conda
 conda info -a
 conda config --add channels conda-forge
-conda install -q python=$PYTHON matplotlib pandasql
+conda install -q matplotlib pandasql
