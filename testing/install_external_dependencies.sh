@@ -19,8 +19,7 @@
 
 # Script for installing R / Python dependencies for Travis CI
 set -ev
-PYTHON="$@"
-if [[ -v "$PYTHON" ]] ; then
+if [[ -z "$PYTHON" ]] ; then
   pwd
   cd ~
   mkdir -p ~/R
