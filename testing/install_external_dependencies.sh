@@ -18,7 +18,7 @@
 #
 
 # Script for installing R / Python dependencies for Travis CI
-set -e
+set -ev
 
 if [[ -v "$PYTHON" ]] ; then
   if [[ "$PYTHON" == "2.7" ]] ; then
