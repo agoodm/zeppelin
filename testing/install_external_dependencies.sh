@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 #
 # Licensed to the Apache Software Foundation (ASF) under one or more
@@ -24,6 +24,7 @@ if [[ -z "$PYTHON" ]] ; then
   echo 'R_LIBS=~/R' > ~/.Renviron
   R -e "install.packages('knitr', repos = 'http://cran.us.r-project.org', lib='~/R')"
   export R_LIBS='~/R'
+  exit
 fi
 
 if [[ "$PYTHON" == "2.7" ]] ; then
