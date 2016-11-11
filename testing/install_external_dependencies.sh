@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
 # this work for additional information regarding copyright ownership.
@@ -19,7 +21,7 @@ set -ev
 touch ~/.environ
 
 # Install R dependencies if R profiles are used
-if [ "$PROFILE" == *"-Pr "* ] || [ "$PROFILE" == *"-Psparkr "* ] ; then
+if [ "$PROFILE" =~ "-Pr " ] || [ "$PROFILE" =~ "-Psparkr " ] ; then
   mkdir -p ~/R
   echo "R_LIBS=~/R" > ~/.Renviron
   echo "export R_LIBS=~/R" >> ~/.environ
