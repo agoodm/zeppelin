@@ -16,24 +16,30 @@
 
 # Script for installing R / Python dependencies for Travis CI
 set -ev
-if [[ -z "$PYTHON" ]] ; then
-  mkdir -p ~/R
-  echo 'R_LIBS=~/R' > ~/.Renviron
-  R -e "install.packages('knitr', repos = 'http://cran.us.r-project.org', lib='~/R')"
-  export R_LIBS='~/R'
-  exit
-fi
+touch ~/.environ
 
-if [[ "$PYTHON" == "2.7" ]] ; then
-  wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh
-else
-  wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+# Install R dependencies if R profiles are used
+if [[ "$PROFILE" == "*-Pr *" ] || ["PROFILE" == "*-Psparkr *"]] ; then
+  mkdir -p ~/R
+  echo "R_LIBS=~/R" > ~/.Renviron
+  echo "export R_LIBS=~/R" >> ~/.environ
+  source ~/.environ
+  R -e "install.packages('knitr', repos = 'http://cran.us.r-project.org', lib='~/R')"
+
+# Install Python dependencies for Python specific tests
+elif [[ -v "$PYTHON" ]] ; then
+  if [[ "$PYTHON" == "2.7" ]] ; then
+    wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh
+  else
+    wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+  fi
+  bash miniconda.sh -b -p $HOME/miniconda
+  ech "export PATH='$HOME/miniconda/bin:$PATH'" >> ~/.environ
+  source ~/.environ
+  hash -r
+  conda config --set always_yes yes --set changeps1 no
+  conda update -q conda
+  conda info -a
+  conda config --add channels conda-forge
+  conda install -q matplotlib pandasql
 fi
-bash miniconda.sh -b -p $HOME/miniconda
-export PATH="$HOME/miniconda/bin:$PATH"
-hash -r
-conda config --set always_yes yes --set changeps1 no
-conda update -q conda
-conda info -a
-conda config --add channels conda-forge
-conda install -q matplotlib pandasql
