@@ -50,6 +50,43 @@ public class PySparkInterpreterMatplotlibTest {
   private File tmpDir;
   public static Logger LOGGER = LoggerFactory.getLogger(PySparkInterpreterTest.class);
   private InterpreterContext context;
+  
+  public static class AltPySparkInterpreter extends PySparkInterpreter {
+    /**
+     * Since pyspark output is  sent to an outputstream rather than
+     * being directly provided by interpret(), this subclass is created to
+     * override interpret() to append the result from the outputStream
+     * for the sake of convenience in testing. The code is mainly copied
+     * from RemoteInterpreterServer.java which normally handles this in real
+     * use cases.
+     */
+    @Override
+    public InterpreterResult interpret(String st, InterpreterContext context) {
+      InterpreterResult result = super.interpret(script, context);
+
+      String message = "";
+
+      context.out.flush();
+      Type outputType = context.out.getType();
+      byte[] interpreterOutput = context.out.toByteArray();
+
+      if (interpreterOutput != null && interpreterOutput.length > 0) {
+        message = new String(interpreterOutput);
+      }
+
+      String interpreterResultMessage = result.message();
+
+      InterpreterResult combinedResult;
+      if (interpreterResultMessage != null && !interpreterResultMessage.isEmpty()) {
+        message += interpreterResultMessage;
+        combinedResult = new InterpreterResult(result.code(), result.type(), message);
+      } else {
+        combinedResult = new InterpreterResult(result.code(), outputType, message);
+      }
+
+      return combinedResult;      
+    }
+  }
 
   public static Properties getPySparkTestProperties() {
     Properties p = new Properties();
@@ -93,7 +130,7 @@ public class PySparkInterpreterMatplotlibTest {
     }
 
     if (pyspark == null) {
-      pyspark = new PySparkInterpreter(getPySparkTestProperties());
+      pyspark = new AltPySparkInterpreter(getPySparkTestProperties());
       intpGroup.get("note").add(pyspark);
       pyspark.setInterpreterGroup(intpGroup);
       pyspark.open();
@@ -156,12 +193,6 @@ public class PySparkInterpreterMatplotlibTest {
     ret = pyspark.interpret("z.configure_mpl(interactive=False)", context);
     ret = pyspark.interpret("plt.plot([1, 2, 3])", context);
     ret = pyspark.interpret("plt.show()", context);
-    System.out.println(ret.message());
-    ret = pyspark.interpret("print(sys.path)", context);
-    System.out.println(ret.message());
-    ret = pyspark.interpret("import matplotlib", context);
-    ret = pyspark.interpret("matplotlib.get_backend()", context);
-    System.out.println(ret.message());
 
     assertEquals(ret.message(), InterpreterResult.Code.SUCCESS, ret.code());
     assertEquals(ret.message(), Type.HTML, ret.type());
