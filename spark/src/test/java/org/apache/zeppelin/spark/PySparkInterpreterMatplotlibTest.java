@@ -75,6 +75,7 @@ public class PySparkInterpreterMatplotlibTest {
       Type outputType;
       byte[] interpreterOutput;
       try {
+        context.out.flush();
         outputType = context.out.getType();
         interpreterOutput = context.out.toByteArray();
       } catch (IOException e) {
@@ -219,7 +220,7 @@ public class PySparkInterpreterMatplotlibTest {
     InterpreterResult ret1;
     InterpreterResult ret2;
     ret = pyspark.interpret("import matplotlib.pyplot as plt", context);
-    ret = pyspark.interpret("z.configure_mpl(interactive=False)", context);
+    ret = pyspark.interpret("z.configure_mpl(interactive=False, close=True, angular=False)", context);
     ret = pyspark.interpret("plt.plot([1, 2, 3])", context);
     ret1 = pyspark.interpret("plt.show()", context);
     
@@ -246,7 +247,7 @@ public class PySparkInterpreterMatplotlibTest {
     InterpreterResult ret1;
     InterpreterResult ret2;
     ret = pyspark.interpret("import matplotlib.pyplot as plt", context);
-    ret = pyspark.interpret("z.configure_mpl(interactive=False, close=False)", context);
+    ret = pyspark.interpret("z.configure_mpl(interactive=False, close=False, angular=False)", context);
     ret = pyspark.interpret("plt.plot([1, 2, 3])", context);
     ret1 = pyspark.interpret("plt.show()", context);
     
