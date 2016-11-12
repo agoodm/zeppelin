@@ -20,19 +20,8 @@
 set -ev
 touch ~/.environ
 
-contains() {
-    string="$1"
-    substring="$2"
-    if test "${string#*$substring}" != "$string"
-    then
-        return 0    # $substring is in $string
-    else
-        return 1    # $substring is not in $string
-    fi
-}
-
 # Install R dependencies if R profiles are used
-if [[ contains "PROFILE" "-Pr "  ]] || [[ contains "$PROFILE" "-Psparkr " ]] ; then
+if [[ "$PROFILE" =~ "-Pr |-Psparkr "  ]] ; then
   mkdir -p ~/R
   echo "R_LIBS=~/R" > ~/.Renviron
   echo "export R_LIBS=~/R" >> ~/.environ
