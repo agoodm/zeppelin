@@ -77,6 +77,8 @@ public class PythonInterpreter extends Interpreter {
       registerHook(HookType.POST_EXEC_DEV, "z._displayhook()");
     }
     
+    // Add zeppelin-bundled libs to PYTHONPATH
+    setPythonPath("../interpreter/lib/python:$PYTHONPATH")
     LOG.info("Starting Python interpreter ---->");
     LOG.info("Python path is set to:" + property.getProperty(ZEPPELIN_PYTHON));
 

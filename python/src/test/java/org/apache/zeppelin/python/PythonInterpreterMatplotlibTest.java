@@ -70,7 +70,6 @@ public class PythonInterpreterMatplotlibTest {
 
     python = new PythonInterpreter(p);
     python.setInterpreterGroup(intpGroup);
-    python.setPythonPath("../interpreter/lib/python:$PYTHONPATH");
     python.open();
 
     List<Interpreter> interpreters = new LinkedList<>();
