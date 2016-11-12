@@ -56,13 +56,20 @@ public class PySparkInterpreterMatplotlibTest {
      * Since pyspark output is  sent to an outputstream rather than
      * being directly provided by interpret(), this subclass is created to
      * override interpret() to append the result from the outputStream
-     * for the sake of convenience in testing. The code is mainly copied
-     * from RemoteInterpreterServer.java which normally handles this in real
-     * use cases.
+     * for the sake of convenience in testing. 
      */
     @Override
+    public AltPySparkInterpreter(Properties property) {
+      super(property);
+    }
+
+    /**
+     * This code is mainly copied from RemoteInterpreterServer.java which 
+     * normally handles this in real use cases.
+     */    
+    @Override
     public InterpreterResult interpret(String st, InterpreterContext context) {
-      InterpreterResult result = super.interpret(script, context);
+      InterpreterResult result = super.interpret(st, context);
 
       String message = "";
 
