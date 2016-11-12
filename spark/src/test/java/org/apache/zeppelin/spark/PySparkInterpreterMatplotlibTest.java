@@ -67,14 +67,19 @@ public class PySparkInterpreterMatplotlibTest {
      * normally handles this in real use cases.
      */    
     @Override
-    public InterpreterResult interpret(String st, InterpreterContext context) throws IOException {
+    public InterpreterResult interpret(String st, InterpreterContext context) {
       InterpreterResult result = super.interpret(st, context);
 
       String message = "";
 
-      context.out.flush();
-      Type outputType = context.out.getType();
-      byte[] interpreterOutput = context.out.toByteArray();
+      try {
+        context.out.flush();
+        Type outputType = context.out.getType();
+        byte[] interpreterOutput = context.out.toByteArray();
+      } catch (IOException e) {
+        return new InterpreterResult(result.code(), result.type(), message);
+      }
+      
 
       if (interpreterOutput != null && interpreterOutput.length > 0) {
         message = new String(interpreterOutput);
