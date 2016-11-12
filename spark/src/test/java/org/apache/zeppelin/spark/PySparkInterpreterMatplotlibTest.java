@@ -58,7 +58,6 @@ public class PySparkInterpreterMatplotlibTest {
      * override interpret() to append the result from the outputStream
      * for the sake of convenience in testing. 
      */
-    @Override
     public AltPySparkInterpreter(Properties property) {
       super(property);
     }
