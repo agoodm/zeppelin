@@ -203,6 +203,7 @@ public class PySparkInterpreterMatplotlibTest {
     // Simple plot test
     InterpreterResult ret;
     ret = pyspark.interpret("import matplotlib.pyplot as plt", context);
+    ret = pyspark.interpret("plt.close()", context);
     ret = pyspark.interpret("z.configure_mpl(interactive=False)", context);
     ret = pyspark.interpret("plt.plot([1, 2, 3])", context);
     ret = pyspark.interpret("plt.show()", context);
@@ -220,6 +221,7 @@ public class PySparkInterpreterMatplotlibTest {
     InterpreterResult ret1;
     InterpreterResult ret2;
     ret = pyspark.interpret("import matplotlib.pyplot as plt", context);
+    ret = pyspark.interpret("plt.close()", context);
     ret = pyspark.interpret("z.configure_mpl(interactive=False, close=True, angular=False)", context);
     ret = pyspark.interpret("plt.plot([1, 2, 3])", context);
     ret1 = pyspark.interpret("plt.show()", context);
@@ -247,6 +249,7 @@ public class PySparkInterpreterMatplotlibTest {
     InterpreterResult ret1;
     InterpreterResult ret2;
     ret = pyspark.interpret("import matplotlib.pyplot as plt", context);
+    ret = pyspark.interpret("plt.close()", context);
     ret = pyspark.interpret("z.configure_mpl(interactive=False, close=False, angular=False)", context);
     ret = pyspark.interpret("plt.plot([1, 2, 3])", context);
     ret1 = pyspark.interpret("plt.show()", context);
@@ -273,6 +276,7 @@ public class PySparkInterpreterMatplotlibTest {
   public void testAngular() {
     InterpreterResult ret;
     ret = pyspark.interpret("import matplotlib.pyplot as plt", context);
+    ret = pyspark.interpret("plt.close()", context);
     ret = pyspark.interpret("z.configure_mpl(interactive=False, close=False, angular=True)", context);
     ret = pyspark.interpret("plt.plot([1, 2, 3])", context);
     ret = pyspark.interpret("plt.show()", context);    
@@ -281,7 +285,8 @@ public class PySparkInterpreterMatplotlibTest {
 
     // Check if the figure data is in the Angular Object Registry
     AngularObjectRegistry registry = context.getAngularObjectRegistry();
-    String figureData = (String) registry.getAll("note", null).get(0).get();
+    System.out.println(registry.getAll("note", null));
+    String figureData = (String) registry.getAll("note", null).getLast().get();
     assertTrue(ret.message().contains(figureData));
   }  
 }
