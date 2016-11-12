@@ -177,7 +177,7 @@ public class PySparkInterpreter extends Interpreter implements ExecuteResultHand
     if (!env.containsKey("PYTHONPATH")) {
       SparkConf conf = getSparkConf();
       env.put("PYTHONPATH", conf.get("spark.submit.pyFiles").replaceAll(",", ":"));
-      env.put("PYTHONPATH", "../interpreter/lib/python:$PYTHONPATH")
+      env.put("PYTHONPATH", "../interpreter/lib/python:$PYTHONPATH");
     }
     return env;
   }
