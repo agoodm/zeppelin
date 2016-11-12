@@ -78,7 +78,7 @@ public class PythonInterpreter extends Interpreter {
     }
     
     // Add zeppelin-bundled libs to PYTHONPATH
-    setPythonPath("../interpreter/lib/python:$PYTHONPATH")
+    setPythonPath("../interpreter/lib/python:$PYTHONPATH");
     LOG.info("Starting Python interpreter ---->");
     LOG.info("Python path is set to:" + property.getProperty(ZEPPELIN_PYTHON));
 
