@@ -286,7 +286,7 @@ public class PySparkInterpreterMatplotlibTest {
     // Check if the figure data is in the Angular Object Registry
     AngularObjectRegistry registry = context.getAngularObjectRegistry();
     System.out.println(registry.getAll("note", null));
-    String figureData = (String) registry.getAll("note", null).getLast().get();
+    String figureData = (String) registry.getAll("note", null).get(1).get();
     assertTrue(ret.message().contains(figureData));
   }  
 }
