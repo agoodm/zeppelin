@@ -91,9 +91,9 @@ public class PySparkInterpreterMatplotlibTest {
       sparkInterpreter.open();
     }
 
-    if (pySparkInterpreter == null) {
-      pySparkInterpreter = new PySparkInterpreter(getPySparkTestProperties());
-      intpGroup.get("note").add(pySparkInterpreter);
+    if (pyspark == null) {
+      pyspark = new PySparkInterpreter(getPySparkTestProperties());
+      intpGroup.get("note").add(pyspark);
       pyspark.setInterpreterGroup(intpGroup);
       pyspark.open();
     }
