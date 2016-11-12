@@ -32,7 +32,7 @@ contains() {
 }
 
 # Install R dependencies if R profiles are used
-if [[ contains "PROFILE" "-Pr " || contains "$PROFILE" "-Psparkr " ]] ; then
+if [[ contains "PROFILE" "-Pr " ]] || [[contains "$PROFILE" "-Psparkr " ]] ; then
   mkdir -p ~/R
   echo "R_LIBS=~/R" > ~/.Renviron
   echo "export R_LIBS=~/R" >> ~/.environ
