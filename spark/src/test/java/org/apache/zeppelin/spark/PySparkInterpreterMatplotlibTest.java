@@ -42,7 +42,7 @@ import java.util.Properties;
 import static org.junit.Assert.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class PySparkInterpreterTest {
+public class PySparkInterpreterMatplotlibTest {
   public static SparkInterpreter sparkInterpreter;
   public static PySparkInterpreter pySparkInterpreter;
   public static InterpreterGroup intpGroup;
