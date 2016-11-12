@@ -21,6 +21,7 @@ import org.apache.zeppelin.display.GUI;
 import org.apache.zeppelin.interpreter.Interpreter;
 import org.apache.zeppelin.interpreter.InterpreterContext;
 import org.apache.zeppelin.interpreter.InterpreterContextRunner;
+import org.apache.zeppelin.interpreter.InterpreterException;
 import org.apache.zeppelin.interpreter.InterpreterGroup;
 import org.apache.zeppelin.interpreter.InterpreterOutputListener;
 import org.apache.zeppelin.interpreter.InterpreterOutput;
@@ -74,11 +75,10 @@ public class PySparkInterpreterMatplotlibTest {
       Type outputType;
       byte[] interpreterOutput;
       try {
-        context.out.flush();
         outputType = context.out.getType();
         interpreterOutput = context.out.toByteArray();
       } catch (IOException e) {
-        return new InterpreterResult(result.code(), result.type(), message);
+        throw new InterpreterException(e);
       }
       
 
