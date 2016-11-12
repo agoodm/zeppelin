@@ -32,15 +32,16 @@ contains() {
 }
 
 # Install R dependencies if R profiles are used
-if [ contains "${PROFILE}" "-Pr "  ] || [ contains "${PROFILE}" "-Psparkr " ] ; then
+if [[ contains "PROFILE" "-Pr "  ]] || [[ contains "$PROFILE" "-Psparkr " ]] ; then
   mkdir -p ~/R
   echo "R_LIBS=~/R" > ~/.Renviron
   echo "export R_LIBS=~/R" >> ~/.environ
   source ~/.environ
   R -e "install.packages('knitr', repos = 'http://cran.us.r-project.org', lib='~/R')"
+fi
 
 # Install Python dependencies for Python specific tests
-elif [[ -v "$PYTHON" ]] ; then
+if [[ -v "$PYTHON" ]] ; then
   if [[ "$PYTHON" == "2.7" ]] ; then
     wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh
   else
