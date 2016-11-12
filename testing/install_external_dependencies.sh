@@ -30,14 +30,14 @@ if [[ ${PROFILE/"-Pr "} != $PROFILE ]] || [[ ${PROFILE/"-Psparkr "} != $PROFILE 
 fi
 
 # Install Python dependencies for Python specific tests
-if [[ -v "$PYTHON" ]] ; then
+if [[ -n "$PYTHON" ]] ; then
   if [[ "$PYTHON" == "2.7" ]] ; then
     wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh
   else
     wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
   fi
   bash miniconda.sh -b -p $HOME/miniconda
-  ech "export PATH='$HOME/miniconda/bin:$PATH'" >> ~/.environ
+  echo "export PATH='$HOME/miniconda/bin:$PATH'" >> ~/.environ
   source ~/.environ
   hash -r
   conda config --set always_yes yes --set changeps1 no
