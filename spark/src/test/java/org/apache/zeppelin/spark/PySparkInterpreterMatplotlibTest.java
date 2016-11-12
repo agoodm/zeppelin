@@ -44,7 +44,7 @@ import static org.junit.Assert.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PySparkInterpreterMatplotlibTest {
   public static SparkInterpreter sparkInterpreter;
-  public static PySparkInterpreter pySparkInterpreter;
+  public static PySparkInterpreter pyspark;
   public static InterpreterGroup intpGroup;
   private File tmpDir;
   public static Logger LOGGER = LoggerFactory.getLogger(PySparkInterpreterTest.class);
@@ -94,8 +94,8 @@ public class PySparkInterpreterMatplotlibTest {
     if (pySparkInterpreter == null) {
       pySparkInterpreter = new PySparkInterpreter(getPySparkTestProperties());
       intpGroup.get("note").add(pySparkInterpreter);
-      pySparkInterpreter.setInterpreterGroup(intpGroup);
-      pySparkInterpreter.open();
+      pyspark.setInterpreterGroup(intpGroup);
+      pyspark.open();
     }
 
     context = new InterpreterContext("note", "id", "title", "text",
