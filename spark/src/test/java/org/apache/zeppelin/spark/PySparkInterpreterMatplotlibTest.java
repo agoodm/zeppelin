@@ -156,6 +156,11 @@ public class PySparkInterpreterMatplotlibTest {
     ret = pyspark.interpret("z.configure_mpl(interactive=False)", context);
     ret = pyspark.interpret("plt.plot([1, 2, 3])", context);
     ret = pyspark.interpret("plt.show()", context);
+    System.out.println(ret.message());
+    ret = pyspark.interpret("sys.path", context);
+    System.out.println(ret.message());
+    ret = pyspark.interpret("import matplotlib", context);
+    ret = pyspark.interpret("matplotlib.get_backend()", context);
 
     assertEquals(ret.message(), InterpreterResult.Code.SUCCESS, ret.code());
     assertEquals(ret.message(), Type.HTML, ret.type());
