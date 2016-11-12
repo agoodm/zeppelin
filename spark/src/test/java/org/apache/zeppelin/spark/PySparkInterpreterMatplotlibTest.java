@@ -36,6 +36,7 @@ import org.junit.runners.MethodSorters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Properties;
@@ -69,13 +70,13 @@ public class PySparkInterpreterMatplotlibTest {
     @Override
     public InterpreterResult interpret(String st, InterpreterContext context) {
       InterpreterResult result = super.interpret(st, context);
-
       String message = "";
-
+      Type outputType;
+      byte[] interpreterOutput;
       try {
         context.out.flush();
-        Type outputType = context.out.getType();
-        byte[] interpreterOutput = context.out.toByteArray();
+        outputType = context.out.getType();
+        interpreterOutput = context.out.toByteArray();
       } catch (IOException e) {
         return new InterpreterResult(result.code(), result.type(), message);
       }
