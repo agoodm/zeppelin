@@ -39,7 +39,7 @@
     <powermock.version>1.6.4</powermock.version>
     <spark.version>2.0.1</spark.version>
     <spark.test.exclude>
-        **/PySparkInterpreterMatplotlibTest.java,
+        **/PySparkInterpreterMatplotlibTest.java
     </spark.test.exclude>
   </properties>
 
