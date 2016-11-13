@@ -442,7 +442,6 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <excludes>
-            <exclude>${spark.test.excludes}</exclude>
             <exclude>**/SparkRInterpreterTest.java</exclude>
           </excludes>
         </configuration>
