@@ -288,6 +288,5 @@ public class PySparkInterpreterMatplotlibTest {
     AngularObjectRegistry registry = context.getAngularObjectRegistry();
     String figureData = registry.getAll("note", null).get(0).toString();
     assertTrue(figureData.contains("data:image/png;base64"));
-    assertTrue(figureData.contains("<div>"));  
   }  
 }
