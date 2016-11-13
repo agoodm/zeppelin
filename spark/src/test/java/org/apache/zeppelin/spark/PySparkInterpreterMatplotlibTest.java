@@ -96,7 +96,8 @@ public class PySparkInterpreterMatplotlibTest {
       } else {
         combinedResult = new InterpreterResult(result.code(), outputType, message);
       }
-
+      
+      context.out.clear();
       return combinedResult;      
     }
   }
