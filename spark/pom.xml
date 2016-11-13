@@ -38,9 +38,6 @@
     <mockito.version>1.10.19</mockito.version>
     <powermock.version>1.6.4</powermock.version>
     <spark.version>2.0.1</spark.version>
-    <pyspark.test.exclude>
-        **/PySparkInterpreterMatplotlibTest.java
-    </pyspark.test.exclude>
   </properties>
 
   <dependencies>
@@ -323,9 +320,6 @@
           <forkCount>1</forkCount>
           <reuseForks>false</reuseForks>
           <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
-          <excludes>
-            <exclude>${pyspark.test.exclude}</exclude>
-          </excludes>
         </configuration>
       </plugin>
 
@@ -428,6 +422,7 @@
             <exclude>**/SparkRInterpreter.java</exclude>
           </excludes>
           <testExcludes>
+            <testExclude>**/PySparkInterpreterMatplotlibTest.java</testExclude>
             <testExclude>**/SparkRInterpreterTest.java</testExclude>
             <testExclude>**/ZeppelinRTest.java</testExclude>
           </testExcludes>
