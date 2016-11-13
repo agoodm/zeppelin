@@ -422,7 +422,6 @@
             <exclude>**/SparkRInterpreter.java</exclude>
           </excludes>
           <testExcludes>
-            <testExclude>**/PySparkInterpreterMatplotlibTest.java</testExclude>
             <testExclude>**/SparkRInterpreterTest.java</testExclude>
             <testExclude>**/ZeppelinRTest.java</testExclude>
           </testExcludes>
