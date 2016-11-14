@@ -448,7 +448,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <includes>
-            <include>${spark.test.exclude}</include>
+            <include>${spark.test.include}</include>
           </includes>
           <excludes>
             <exclude>${spark.test.exclude}</exclude>
