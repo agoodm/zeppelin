@@ -616,6 +616,7 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
               <excludes combine.self="override">
+                <exclude>${spark.test.exclude}</exclude>
               </excludes>
             </configuration>
           </plugin>
