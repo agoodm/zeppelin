@@ -428,6 +428,7 @@
             <exclude>**/SparkRInterpreter.java</exclude>
           </excludes>
           <testExcludes>
+            <testExclude>${spark.test.exclude}</testExclude>
             <testExclude>**/SparkRInterpreterTest.java</testExclude>
             <testExclude>**/ZeppelinRTest.java</testExclude>
           </testExcludes>
@@ -600,7 +601,9 @@
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
               <excludes combine.self="override"></excludes>
-              <testExcludes combine.self="override"></testExcludes>
+              <testExcludes combine.self="override">
+                <testExclude>${spark.test.exclude}</testExclude>
+              </testExcludes>
             </configuration>
           </plugin>
           <plugin>
