@@ -25,7 +25,7 @@ if [[ ${PROFILE/"-Pr "} != $PROFILE ]] || [[ ${PROFILE/"-Psparkr "} != $PROFILE 
   echo "R_LIBS=~/R" > ~/.Renviron
   echo "export R_LIBS=~/R" >> ~/.environ
   source ~/.environ
-  if [[ ! -d "$HOME/R/Library" ]] ; then
+  if [[ ! -d "$HOME/R/knitr" ]] ; then
     mkdir -p ~/R
     R -e "install.packages('knitr', repos = 'http://cran.us.r-project.org', lib='~/R')"
   fi
