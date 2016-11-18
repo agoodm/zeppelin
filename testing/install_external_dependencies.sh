@@ -38,6 +38,13 @@ if [[ -n "$PYTHON" ]] ; then
     echo "Using cached miniconda installation"
   else
     echo "Using fresh miniconda installation"
+    
+    # Need to make sure miniconda directory is empty first or install will fail
+    if [ -d "$MINICONDA_DIR" ] ; then
+      rm -rf $MINICONDA_DIR
+    fi
+    
+    # Download and install miniconda
     wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
     bash miniconda.sh -b -p $MINICONDA_DIR
     hash -r
@@ -45,6 +52,8 @@ if [[ -n "$PYTHON" ]] ; then
     conda update -q conda
     conda info -a
     conda config --add channels conda-forge
+    
+    # Install dependencies for appropriate environment for each python version
     conda create -q -n $PYTHON python=$PYTHON matplotlib pandasql
   fi
   
