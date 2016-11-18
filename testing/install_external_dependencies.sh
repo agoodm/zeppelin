@@ -20,7 +20,7 @@
 set -ev
 touch ~/.environ
 MINICONDA_DIR="$HOME/miniconda"
-MINICONDA_PREFIX = $MINICONDA_DIR/envs/$PYTHON
+MINICONDA_PREFIX=$MINICONDA_DIR/envs/$PYTHON
 
 # Install R dependencies if R profiles are used
 if [[ ${PROFILE/"-Pr "} != $PROFILE ]] || [[ ${PROFILE/"-Psparkr "} != $PROFILE ]] ; then
