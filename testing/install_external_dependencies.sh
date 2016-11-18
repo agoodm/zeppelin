@@ -35,6 +35,9 @@ fi
 # Install Python dependencies for Python specific tests
 if [[ -n "$PYTHON" ]] ; then
   if [ -d "$MINICONDA_DIR" ] && [ -e "$MINICONDA_DIR/bin/conda" ] ; then
+    echo "Using cached miniconda installation"
+  else
+    echo "Using fresh miniconda installation"
     wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
     bash miniconda.sh -b -p $MINICONDA_DIR
     hash -r
