@@ -20,6 +20,7 @@
 set -ev
 touch ~/.environ
 MINICONDA_DIR="$HOME/miniconda"
+MINICONDA_PREFIX = $MINICONDA_DIR/envs/$PYTHON
 
 # Install R dependencies if R profiles are used
 if [[ ${PROFILE/"-Pr "} != $PROFILE ]] || [[ ${PROFILE/"-Psparkr "} != $PROFILE ]] ; then
@@ -47,6 +48,7 @@ if [[ -n "$PYTHON" ]] ; then
     # Download and install miniconda
     wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
     bash miniconda.sh -b -p $MINICONDA_DIR
+    export PATH='$MINICONDA_DIR/bin:$PATH'
     hash -r
     conda config --set always_yes yes --set changeps1 no
     conda update -q conda
@@ -57,6 +59,5 @@ if [[ -n "$PYTHON" ]] ; then
     conda create -q -n $PYTHON python=$PYTHON matplotlib pandasql
   fi
   
-  echo "export PATH='$MINICONDA_DIR/envs/$PYTHON/bin:$PATH'" >> ~/.environ
-  source ~/.environ
+  echo "export PATH='$MINICONDA_PREFIX/bin:$PATH'" >> ~/.environ
 fi
