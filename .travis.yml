@@ -23,6 +23,7 @@ cache:
     - ${HOME}/.m2/repository/.cache/maven-download-plugin
     - .node_modules
     - ${HOME}/R
+    - ${HOME}/miniconda
 
 addons:
   apt:

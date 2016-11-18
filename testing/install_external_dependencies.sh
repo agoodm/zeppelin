@@ -19,6 +19,7 @@
 # Script for installing R / Python dependencies for Travis CI
 set -ev
 touch ~/.environ
+MINICONDA_DIR="$HOME/miniconda"
 
 # Install R dependencies if R profiles are used
 if [[ ${PROFILE/"-Pr "} != $PROFILE ]] || [[ ${PROFILE/"-Psparkr "} != $PROFILE ]] ; then
@@ -33,14 +34,17 @@ fi
 
 # Install Python dependencies for Python specific tests
 if [[ -n "$PYTHON" ]] ; then
-  wget https://repo.continuum.io/miniconda/Miniconda${PYTHON}-latest-Linux-x86_64.sh -O miniconda.sh
-  bash miniconda.sh -b -p $HOME/miniconda
-  echo "export PATH='$HOME/miniconda/bin:$PATH'" >> ~/.environ
+  if [ -d "$MINICONDA_DIR" ] && [ -e "$MINICONDA_DIR/bin/conda" ] ; then
+    wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+    bash miniconda.sh -b -p $MINICONDA_DIR
+    hash -r
+    conda config --set always_yes yes --set changeps1 no
+    conda update -q conda
+    conda info -a
+    conda config --add channels conda-forge
+    conda create -q -n $PYTHON python=$PYTHON matplotlib pandasql
+  fi
+  
+  echo "export PATH='$MINICONDA_DIR/envs/$PYTHON/bin:$PATH'" >> ~/.environ
   source ~/.environ
-  hash -r
-  conda config --set always_yes yes --set changeps1 no
-  conda update -q conda
-  conda info -a
-  conda config --add channels conda-forge
-  conda install -q matplotlib pandasql
 fi
